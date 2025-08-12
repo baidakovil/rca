@@ -1,0 +1,12 @@
+{
+  "name": "Revit Chat Assistant (POC)",
+  "author": "",
+  "description": "pyRevit bundle providing chat UI and HTTP scripts to interact with the server.",
+  "bundle_type": "script",
+  "version": "0.1.0",
+  "engine": {
+    "full_name": "IronPython2.7"
+  },
+  "visibility": ["doc-project"],
+  "notes": "Scaffold only. Scripts under scripts/ will be wired to ribbon in future steps."
+}

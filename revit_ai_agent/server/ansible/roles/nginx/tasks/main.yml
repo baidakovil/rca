@@ -1,0 +1,13 @@
+---
+# nginx role tasks scaffold (optional)
+# TODO: install and configure Nginx as a reverse proxy to FastAPI
+
+- name: Ensure nginx is installed
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Placeholder for nginx site config
+  debug:
+    msg: "TODO: add nginx site configuration and enable it"

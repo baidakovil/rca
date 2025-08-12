@@ -1,0 +1,8 @@
+---
+# nginx role handlers scaffold
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
