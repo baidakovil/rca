@@ -1,6 +1,6 @@
-# Proof-of-Concept AI Agent for Revit
+# Revit Chat Assistant: Proof-of-Concept AI Agent for Autodesk Revit
 
-This document outlines a Python-based proof-of-concept AI agent that automates Revit workflows by cloning the core ideas of ArchiLabs. It is split into two cooperating components:
+This document outlines a Python-based proof-of-concept AI agent that automates Revit workflows by cloning the core ideas of projects [ArchiLabs](https://archilabs.ai/) and [Pele AI](https://www.pele-assistant.online/pele). It is split into two cooperating components:
 
 1. **Server** (Ubuntu deployment via Ansible)  
    - FastAPI application with Uvicorn  
