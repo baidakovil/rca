@@ -37,7 +37,7 @@ Project is split into two cooperating components.
    - Ansible: `server/ansible/` (roles: fastapi, nginx)
 
 - pyRevit Add-in
-   - Bundle: `revit_ai_agent/addin/revit_ai.bundle`
+   - Bundle: `addin/revit_ai.bundle`
    - UI: `.../scripts/ui.py` (pyRevit Forms stubs)
    - HTTP client: `.../scripts/run_via_http.py` (basic `httpx` POSTs)
    - Resources: `.../resources/`
@@ -88,7 +88,7 @@ os.environ["OLLAMA_MODEL"] = "deepseek-coder-v2:16b"
 
 ## How to run (server)
 
-On Ubuntu, from `revit_ai_agent/server`:
+On Ubuntu, from `server`:
 
 ```bash
 ./install.sh
@@ -110,11 +110,11 @@ Provider env vars (set only what you need):
 
 ## Ansible role usage
 
-The playbook `revit_ai_agent/server/ansible/playbook.yml` includes roles `fastapi` and optional `nginx`. Fill role tasks to clone the repo, create a systemd service for Uvicorn, and configure Nginx.
+The playbook `server/ansible/playbook.yml` includes roles `fastapi` and optional `nginx`. Fill role tasks to clone the repo, create a systemd service for Uvicorn, and configure Nginx.
 
 ## Install the pyRevit bundle (Windows 11)
 
-See `revit_ai_agent/addin/README-ADDIN.md` for steps to place `revit_ai.bundle` into the pyRevit extensions folder and load it in Revit.
+See `addin/README-ADDIN.md` for steps to place `revit_ai.bundle` into the pyRevit extensions folder and load it in Revit.
 
 Note: This POC currently returns code or instructions via chat; applying changes inside Revit requires the add-in to execute confirmed steps (future work). The server’s `/execute` runs Python code out-of-process for dry runs; it does not act inside a live Revit document yet.
 
@@ -136,7 +136,7 @@ Enable tool binding by setting `RCA_ENABLE_TOOLS=1`. Tools will be discovered an
 
 ## Run tests (server)
 
-From `revit_ai_agent/server` with your virtualenv active:
+From `server` with your virtualenv active:
 
 ```bash
 pytest

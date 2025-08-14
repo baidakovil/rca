@@ -1,0 +1,8 @@
+---
+# fastapi role handlers scaffold
+
+- name: restart fastapi
+  service:
+    name: fastapi
+    state: restarted
+    enabled: yes

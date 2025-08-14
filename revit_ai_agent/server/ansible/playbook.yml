@@ -1,9 +1,0 @@
----
-# Ansible playbook scaffold for deploying the FastAPI server.
-# TODO: Expand inventories, variables, and role configurations as needed.
-
-- hosts: all
-  become: yes
-  roles:
-    - fastapi
-    - nginx  # optional
