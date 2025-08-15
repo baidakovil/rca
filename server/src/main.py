@@ -14,20 +14,31 @@ from server.src.api.routes import router as api_router
 from server.src.utils.logger import get_logger
 
 # Create the FastAPI application instance used by Uvicorn or other ASGI servers.
-app: FastAPI = FastAPI(title="Revit AI Server (POC)")
+import contextlib
+from typing import AsyncGenerator
 
 logger = get_logger(__name__)
 
+@contextlib.asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+	"""Lifespan context manager for FastAPI startup and shutdown events.
 
-@app.on_event("startup")
-async def on_startup() -> None:
-	"""Log a basic startup message.
+	Args:
+		app (FastAPI): The FastAPI application instance.
+
+	Yields:
+		None
 
 	Raises:
 		None
 	"""
-	# TODO: Add environment checks, DB init, etc.
+	# Startup logic
 	logger.info("Starting Revit AI Server (POC)")
+	# TODO: Add environment checks, DB init, etc.
+	yield
+	# Shutdown logic (if needed)
+
+app: FastAPI = FastAPI(title="Revit AI Server (POC)", lifespan=lifespan)
 
 # Include API routes.
 app.include_router(api_router)

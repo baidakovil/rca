@@ -33,6 +33,24 @@ This will:
 - Install requirements
 - Run the Ansible playbook
 
+## Debugging on Windows — single recommended method
+
+Use PowerShell's Invoke-RestMethod for local testing and debugging (preferred).
+
+POST (JSON body):
+```powershell
+Invoke-RestMethod -Uri 'http://127.0.0.1:8000/chat' -Method POST -ContentType 'application/json' -Body '{"message":"List steps to delete all walls","session_id":"dev1"}'
+```
+
+Health:
+```powershell
+Invoke-RestMethod -Uri 'http://127.0.0.1:8000/health'  
+```
+
+Notes:
+- Use the POST endpoint for real clients; GET is a convenience for quick checks.
+- Ensure the server is running: `python -m uvicorn server.src.main:app --reload`
+
 ## Ansible Usage
 
 The playbook at `ansible/playbook.yml` invokes roles `fastapi` and optionally `nginx`.

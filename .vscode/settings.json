@@ -1,0 +1,7 @@
+{
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": [
+        "Y:\\rca\\addin\\prstubs",
+        "Y:\\rca\\addin\\efstubs",
+    ]
+}

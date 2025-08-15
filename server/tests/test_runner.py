@@ -1,7 +1,15 @@
 """Unit tests for subprocess runner."""
 from __future__ import annotations
 
-from server.src.executor.runner import run_script
+import sys
+from pathlib import Path
+
+# Add the server directory to the Python path
+server_path = Path(__file__).parent.parent
+if str(server_path) not in sys.path:
+    sys.path.insert(0, str(server_path))
+
+from src.executor.runner import run_script  # Now src is in the path
 
 
 def test_runner_stdout() -> None:
