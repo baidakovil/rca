@@ -7,6 +7,7 @@ applyTo: "**/*.py"
 ## Project Context
 This project uses the pyRevit Python library for Revit API development.
 The goal is to create a tool that implements changes in the BIM model according to user prompt. Always check information about the project in [README.md](../README.md).
+Align with the pyRevit API documentation in [llms-full.md](llms-full.md).
 
 ## General Coding Practices
 - Emphasize simplicity, readability, and DRY principles.
