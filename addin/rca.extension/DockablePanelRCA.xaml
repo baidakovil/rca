@@ -1,0 +1,109 @@
+<!--
+    DockablePanelRCA.xaml
+    Revit Chat Assistant main panel layout for pyRevit WPF
+    - Top toolbar: NEW CHAT (right), CHAT HISTORY (left of NEW CHAT)
+    - Central scrollable chat/code region
+    - Bottom: multi-line input + SEND
+    - All offsets as variables for easy adjustment
+    - All elements named for code-behind binding
+-->
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Background="White">
+    <Page.Resources>
+        <!-- Layout variables for easy adjustment -->
+        <Thickness x:Key="PanelMargin">10,10,10,10</Thickness>
+        <Thickness x:Key="ToolbarMargin">10,10,10,0</Thickness>
+        <Thickness x:Key="ChatMargin">0,10,0,10</Thickness>
+        <Thickness x:Key="InputMargin">0,0,0,10</Thickness>
+        <sys:Double x:Key="ToolbarHeight">40</sys:Double>
+        <sys:Double x:Key="ButtonWidth">110</sys:Double>
+        <sys:Double x:Key="ButtonHeight">32</sys:Double>
+        <sys:Double x:Key="SendButtonWidth">90</sys:Double>
+        <sys:Double x:Key="SendButtonHeight">32</sys:Double>
+        <sys:Double x:Key="InputHeight">70</sys:Double>
+        <sys:Double x:Key="CodeRegionHeight">90</sys:Double>
+        <sys:Double x:Key="CodeFontSize">13</sys:Double>
+        <sys:Double x:Key="ChatFontSize">14</sys:Double>
+        <sys:Double x:Key="ToolbarSpacing">10</sys:Double>
+    <sys:Double x:Key="CodeButtonWidth">100</sys:Double>
+    <sys:Double x:Key="CodeButtonHeight">28</sys:Double>
+    </Page.Resources>
+    <Grid Margin="{StaticResource PanelMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Toolbar -->
+            <RowDefinition Height="*"/>    <!-- Chat/Code scrollable -->
+            <RowDefinition Height="Auto"/> <!-- Input panel -->
+        </Grid.RowDefinitions>
+
+        <!-- Top Toolbar -->
+        <Grid Grid.Row="0" Margin="{StaticResource ToolbarMargin}" Height="{StaticResource ToolbarHeight}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- Left: CHAT label -->
+            <TextBlock Text="CHAT" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Grid.Column="0"/>
+            <!-- Right: NEW CHAT button -->
+            <Button x:Name="NewChatButton" Content="NEW CHAT" Width="{StaticResource ButtonWidth}" Height="{StaticResource ButtonHeight}" Grid.Column="1" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!-- Central Scrollable Chat/Code Panel -->
+        <ScrollViewer Grid.Row="1" Margin="{StaticResource ChatMargin}" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Server Reply (read-only) -->
+                <TextBlock x:Name="ServerReplyText" Text="" FontSize="{StaticResource ChatFontSize}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+                <!-- Collapsible Code Snippet Region -->
+                <Expander x:Name="CodeExpander" Header="Show Python Code" IsExpanded="False" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="CodeSnippetBox"
+                                 Grid.Row="0"
+                                 Text=""
+                                 FontFamily="Consolas"
+                                 FontSize="{StaticResource CodeFontSize}"
+                                 IsReadOnly="True"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Height="{StaticResource CodeRegionHeight}"
+                                 HorizontalAlignment="Stretch"
+                                 MinWidth="100"
+                                 />
+                        <Button x:Name="ExecuteButton"
+                                Grid.Row="1"
+                                Content="EXECUTE"
+                                Width="{StaticResource CodeButtonWidth}"
+                                Height="{StaticResource CodeButtonHeight}"
+                                HorizontalAlignment="Right"
+                                Margin="0,5,0,0"
+                                />
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+    <!-- Bottom Input Panel -->
+    <StackPanel Grid.Row="2" Margin="{StaticResource InputMargin}" Orientation="Vertical">
+        <TextBox x:Name="UserInputBox"
+             AcceptsReturn="True"
+             VerticalScrollBarVisibility="Auto"
+             Height="{StaticResource InputHeight}"
+             MinHeight="40"
+             Margin="0,0,0,5"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Top"
+             />
+        <Button x:Name="SendButton"
+            Content="SEND"
+            Width="{StaticResource SendButtonWidth}"
+            Height="{StaticResource SendButtonHeight}"
+            HorizontalAlignment="Left"
+            />
+    </StackPanel>
+    </Grid>
+</Page>
