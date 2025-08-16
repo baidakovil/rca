@@ -6,7 +6,7 @@ __doc__ = "Interface Between You and Revit via Large Language Model"
 
 
 # Import Revit UI for our dialog
-from Autodesk.Revit.UI import TaskDialog
+from Autodesk.Revit.UI import TaskDialog # pyright: ignore[reportMissingModuleSource]
 
 def main():
     # Create a simple dialog box
