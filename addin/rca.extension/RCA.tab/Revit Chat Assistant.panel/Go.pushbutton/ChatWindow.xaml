@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    x:Name="MainWindow"
+    Title="Revit Chat Assistant."
+    Height="640" Width="520"
+    MinHeight="420" MinWidth="420"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="CanResize"
+    Background="#FFF9F9F9">
+
+    <!-- Root layout: DockPanel for easy top/bottom bars and central content -->
+    <DockPanel x:Name="RootDock" LastChildFill="True">
+
+        <!-- Top toolbar -->
+        <Border x:Name="TopToolbarBorder"
+                DockPanel.Dock="Top"
+                Background="#FFFDFDFD"
+                BorderBrush="#FFE5E5E5"
+                BorderThickness="0,0,0,1">
+            <Grid x:Name="TopToolbarGrid" Height="40" Margin="8,6,8,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Right-aligned buttons: CHAT HISTORY to the left of NEW CHAT -->
+                <Button x:Name="btnChatHistory"
+                        Grid.Column="1"
+                        Content="CHAT HISTORY"
+                        MinWidth="110"
+                        Height="26"
+                        Padding="10,2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        ToolTip="Open chat history (future)"/>
+
+                <Button x:Name="btnNewChat"
+                        Grid.Column="3"
+                        Content="NEW CHAT"
+                        MinWidth="90"
+                        Height="26"
+                        Padding="10,2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        ToolTip="Start a new chat"/>
+            </Grid>
+        </Border>
+
+        <!-- Bottom input panel -->
+        <Border x:Name="BottomInputBorder"
+                DockPanel.Dock="Bottom"
+                Background="#FFFFFFFF"
+                BorderBrush="#FFE5E5E5"
+                BorderThickness="0,1,0,0"
+                Padding="8">
+            <Grid x:Name="BottomInputGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Multi-line input textbox -->
+                <TextBox x:Name="txtPrompt"
+                         Grid.Column="0"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled"
+                         MinHeight="64"
+                         MaxHeight="160"
+                         Padding="6"
+                         ToolTip="Type your request to the assistant"/>
+
+                <!-- Placeholder for future model dropdown (disabled for now) -->
+                <ComboBox x:Name="cmbModel"
+                          Grid.Column="2"
+                          MinWidth="140"
+                          IsEnabled="False"
+                          Opacity="0.6"
+                          ToolTip="Choose Model (coming soon)">
+                    <ComboBoxItem Content="Choose Model (soon)" IsSelected="True"/>
+                </ComboBox>
+
+                <!-- SEND button -->
+                <Button x:Name="btnSend"
+                        Grid.Column="4"
+                        Content="SEND"
+                        MinWidth="80"
+                        Height="32"
+                        Padding="12,4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        ToolTip="Send message to server"/>
+            </Grid>
+        </Border>
+
+        <!-- Central scrollable content area -->
+        <Grid x:Name="CenterGrid" Background="#FFFFFFFF">
+            <ScrollViewer x:Name="RepliesScrollViewer"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="8">
+                <StackPanel x:Name="panelConversation" Orientation="Vertical" >
+
+                    <!-- Read-only server replies area -->
+                    <Border x:Name="RepliesBorder" Background="#FFFDFDFD" BorderBrush="#FFE5E5E5" BorderThickness="1" CornerRadius="4" Padding="8" >
+                        <TextBlock x:Name="ServerReplyTextBlock"
+                                   TextWrapping="Wrap"
+                                   Foreground="#FF1E1E1E"
+                                   FontSize="13"
+                                   Text=""/>
+                    </Border>
+
+                    <Border Height="8" Background="Transparent"/>
+
+                    <!-- Collapsible code snippet region with EXECUTE button -->
+                    <Expander x:Name="CodeSnippetExpander" IsExpanded="False">
+                        <Expander.Header>
+                            <DockPanel LastChildFill="False">
+                                <TextBlock x:Name="CodeSnippetTitle" Text="Code Snippet" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                <Button x:Name="btnExecute"
+                                        Content="EXECUTE"
+                                        MinWidth="90"
+                                        Height="24"
+                                        Padding="10,2"
+                                        Margin="12,0,0,0"
+                                        DockPanel.Dock="Right"
+                                        VerticalAlignment="Center"
+                                        ToolTip="Run the generated code in Revit"/>
+                            </DockPanel>
+                        </Expander.Header>
+                        <Border x:Name="CodeContainerBorder" Margin="0,6,0,0" BorderBrush="#FFE5E5E5" BorderThickness="1" CornerRadius="4" Background="#FFFCFCFC" Padding="6">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBox x:Name="txtCode"
+                                         Grid.Row="0"
+                                         AcceptsReturn="True"
+                                         VerticalScrollBarVisibility="Auto"
+                                         HorizontalScrollBarVisibility="Auto"
+                                         TextWrapping="NoWrap"
+                                         FontFamily="Consolas"
+                                         FontSize="12"
+                                         Padding="6"
+                                         ToolTip="Generated code to review and execute"/>
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>
